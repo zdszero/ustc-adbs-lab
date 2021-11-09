@@ -6,8 +6,8 @@
 
 class Page {
 public:
-  explicit Page();
-  virtual ~Page();
+  explicit Page() = default;
+  virtual ~Page() = default;
 
   page_id_t GetPageId() { return page_id_; }
   void SetPageId(page_id_t page_id) { page_id_ = page_id; }

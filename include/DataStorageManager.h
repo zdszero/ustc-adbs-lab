@@ -1,16 +1,18 @@
 #include <iostream>
 
 #include "Common.h"
-
-#define MAXPAGES 10
+#include "Page.h"
 
 class DSMgr {
 public:
-  DSMgr();
+  explicit DSMgr();
+  explicit DSMgr(std::string filename);
+  ~DSMgr();
   int OpenFile(std::string filename);
   int CloseFile();
-  bFrame ReadPage(int page_id);
-  int WritePage(int frame_id, bFrame frm);
+  page_id_t NewPage();
+  void ReadPage(int page_id, char *data);
+  void WritePage(Page *page);
   int Seek(int offset, int pos);
   FILE *GetFile();
   void IncNumPages();
@@ -19,7 +21,6 @@ public:
   int GetUse(int index);
 
 private:
-  FILE *currFile;
-  int numPages;
-  int pages[MAXPAGES];
+  FILE *curr_file_;
+  int num_pages_;
 };

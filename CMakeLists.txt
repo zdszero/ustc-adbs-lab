@@ -29,8 +29,10 @@ FILE(GLOB TESTS test/*.cc)
 # endforeach(test_source ${TESTS})
 
 add_executable(lru_replacer_test EXCLUDE_FROM_ALL test/lru_replacer_test.cc src/LRUReplacer.cc)
-target_include_directories(lru_replacer_test PUBLIC include)
 target_link_libraries(lru_replacer_test PUBLIC GTest::gtest_main)
+
+add_executable(data_storage_manager_test EXCLUDE_FROM_ALL test/data_storage_manager_test.cc src/DataStorageManager.cc)
+target_link_libraries(data_storage_manager_test PUBLIC GTest::gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(lru_replacer_test)
