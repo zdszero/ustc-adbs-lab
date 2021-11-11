@@ -19,6 +19,7 @@ public:
   FILE *GetFile();
   void IncNumPages();
   int GetNumPages();
+  int GetWriteNum();
   void SetUse(int index, int use_bit);
   int GetUse(int index);
 

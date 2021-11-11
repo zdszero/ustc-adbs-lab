@@ -22,6 +22,6 @@ public:
 private:
   bool is_dirty_;
   char data_[PAGE_SIZE];
-  page_id_t page_id_;
+  page_id_t page_id_ = -1;
   int pin_count_;
 };

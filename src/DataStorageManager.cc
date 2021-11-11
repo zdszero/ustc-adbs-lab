@@ -15,10 +15,15 @@ DSMgr::~DSMgr() {
 }
 
 int DSMgr::OpenFile(std::string filename) {
-  curr_file_ = fopen(filename.c_str(), "w+");
-  fseek(curr_file_, 0L, SEEK_END);
-  long sz = ftell(curr_file_);
-  num_pages_ = sz / PAGE_SIZE;
+  curr_file_ = fopen(filename.c_str(), "r+");
+  if (curr_file_ == nullptr) {
+    curr_file_ = fopen(filename.c_str(), "w");
+    curr_file_ = freopen(filename.c_str(), "r+", curr_file_);
+  } else {
+    fseek(curr_file_, 0L, SEEK_END);
+    long sz = ftell(curr_file_);
+    num_pages_ = sz / PAGE_SIZE;
+  }
   return curr_file_ != nullptr;
 }
 

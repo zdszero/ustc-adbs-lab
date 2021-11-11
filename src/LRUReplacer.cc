@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "LRUReplacer.h"
 
 LRUReplacer::LRUReplacer(int max_size): max_size_(max_size) {
@@ -54,6 +56,14 @@ void LRUReplacer::Remove(frame_id_t frame_id) {
 
 int LRUReplacer::Size() {
   return size_;
+}
+
+void LRUReplacer::Print() {
+  printf("lru replacer:\n");
+  for (ListNode *p = head_->next; p != tail_; p = p->next) {
+    printf("%d ", p->val);
+  }
+  printf("\n");
 }
 
 void LRUReplacer::pop_node() {

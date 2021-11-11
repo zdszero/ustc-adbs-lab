@@ -19,6 +19,7 @@ public:
   void Insert(frame_id_t frame_id);
   void Remove(frame_id_t frame_id);
   int Size();
+  void Print();
 
 private:
   inline void set_pointer(ListNode *p, ListNode *q) {

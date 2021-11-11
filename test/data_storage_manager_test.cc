@@ -17,8 +17,8 @@ TEST(DataStorageManagerTest, SampleTest) {
     sprintf(buf2, "hello world, this is page %d", i);
     EXPECT_EQ(strcmp(buf, buf2), 0);
   }
-  remove("test.db");
   delete ds_mgr;
+  remove("test.db");
 }
 
 TEST(DataStorageManagerTest, SampleTest2) {
@@ -32,6 +32,6 @@ TEST(DataStorageManagerTest, SampleTest2) {
   for (int i = 0; i < 10; i++) {
     ds_mgr->WritePage(pages[i]);
   }
-  remove("test.db");
   delete ds_mgr;
+  remove("test.db");
 }

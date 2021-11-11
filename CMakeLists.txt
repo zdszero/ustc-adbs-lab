@@ -9,6 +9,7 @@ FILE(GLOB SOURCES src/*.cc)
 add_executable(
   main
   ${SOURCES}
+  test/main.cc
 )
 
 include_directories(include)
