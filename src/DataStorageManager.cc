@@ -7,7 +7,6 @@ DSMgr::DSMgr() {
 }
 
 DSMgr::DSMgr(std::string filename) {
-  num_pages_ = 0;
   OpenFile(filename);
 }
 
@@ -16,7 +15,7 @@ DSMgr::~DSMgr() {
 }
 
 int DSMgr::OpenFile(std::string filename) {
-  curr_file_ = fopen(filename.c_str(), "a+");
+  curr_file_ = fopen(filename.c_str(), "w+");
   fseek(curr_file_, 0L, SEEK_END);
   long sz = ftell(curr_file_);
   num_pages_ = sz / PAGE_SIZE;
@@ -32,8 +31,11 @@ FILE *DSMgr::GetFile() {
 }
 
 page_id_t DSMgr::NewPage() {
+  char buf[PAGE_SIZE];
   int ret = num_pages_;
   IncNumPages();
+  fseek(curr_file_, 0L, SEEK_END);
+  fwrite(buf, 1, PAGE_SIZE, curr_file_);
   return ret;
 }
 

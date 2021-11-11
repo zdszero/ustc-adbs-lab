@@ -34,5 +34,7 @@ target_link_libraries(lru_replacer_test PUBLIC GTest::gtest_main)
 add_executable(data_storage_manager_test EXCLUDE_FROM_ALL test/data_storage_manager_test.cc src/DataStorageManager.cc)
 target_link_libraries(data_storage_manager_test PUBLIC GTest::gtest_main)
 
+add_executable(buffer_pool_manager_test EXCLUDE_FROM_ALL test/buffer_pool_manager_test.cc ${SOURCES})
+target_link_libraries(buffer_pool_manager_test PUBLIC GTest::gtest_main)
+
 include(GoogleTest)
-gtest_discover_tests(lru_replacer_test)

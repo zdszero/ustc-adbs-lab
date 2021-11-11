@@ -7,6 +7,7 @@
 class Page {
 public:
   explicit Page() = default;
+  explicit Page(page_id_t page_id): page_id_(page_id) {}
   virtual ~Page() = default;
 
   page_id_t GetPageId() { return page_id_; }
@@ -15,7 +16,8 @@ public:
   bool IsDirty() { return is_dirty_; }
   void SetDirty(bool is_dirty) { is_dirty_ = is_dirty; }
   int GetPinCount() { return pin_count_; }
-  void SetPinCount(int pin_count) { pin_count_ = pin_count; }
+  void IncPinCount() { pin_count_++; }
+  void DecPinCount() { pin_count_--; }
 
 private:
   bool is_dirty_;

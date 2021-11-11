@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Replacer.h"
 
 #include <unordered_map>
