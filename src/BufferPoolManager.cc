@@ -59,6 +59,7 @@ frame_id_t BMgr::FixPage(int page_id) {
 }
 
 frame_id_t BMgr::FixPage(int page_id, bool is_dirty) {
+  Lock lock(latch_);
   frame_id_t fid = FixPage(page_id);
   pages_[fid]->SetDirty(pages_[fid]->IsDirty() | is_dirty);
   return fid;
@@ -103,6 +104,7 @@ int BMgr::GetIONum() { return num_io_; }
 int BMgr::GetHitNum() { return num_hits_; }
 
 frame_id_t BMgr::UnfixPage(int page_id) {
+  Lock lock(latch_);
   auto iter = page_table_.find(page_id);
   frame_id_t frame_id = -1;
   if (iter != page_table_.end()) {

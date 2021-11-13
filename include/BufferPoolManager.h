@@ -2,6 +2,7 @@
 
 #include <list>
 #include <unordered_map>
+#include <mutex>
 
 #include "DataStorageManager.h"
 #include "Replacer.h"
@@ -11,6 +12,7 @@
 enum ReplacePolicy { Invalid = 0, Lru, Clock };
 
 class BMgr {
+  using Lock = std::lock_guard<std::mutex>;
 public:
   BMgr(std::string filename, int policy = ReplacePolicy::Lru,
        int frame_num = FRAME_NUM);
@@ -44,4 +46,5 @@ private:
   int num_io_;
   int num_hits_;
   Replacer *replacer_;
+  std::mutex latch_;
 };
