@@ -38,4 +38,7 @@ target_link_libraries(data_storage_manager_test PUBLIC GTest::gtest_main)
 add_executable(buffer_pool_manager_test EXCLUDE_FROM_ALL test/buffer_pool_manager_test.cc ${SOURCES})
 target_link_libraries(buffer_pool_manager_test PUBLIC GTest::gtest_main)
 
+add_executable(clock_replacer_test EXCLUDE_FROM_ALL test/clock_replacer_test.cc src/ClockReplacer.cc)
+target_link_libraries(clock_replacer_test PUBLIC GTest::gtest_main)
+
 include(GoogleTest)

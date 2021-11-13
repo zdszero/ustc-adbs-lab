@@ -44,7 +44,6 @@ frame_id_t BMgr::FixPage(int page_id) {
   Page *p = pages_[frame_id];
   disk_manager_->ReadPage(page_id, p->GetData());
   num_io_++;
-  page_table_.erase(p->GetPageId());
   page_table_[page_id] = frame_id;
   p->IncPinCount();
   p->SetPageId(page_id);
