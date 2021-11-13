@@ -9,17 +9,6 @@
 
 static int ThreadNumber = 10;
 
-void PrintHelp(char *program_name) {
-  printf("ustc adbs 2021 lab\n"
-         "Usage:\n"
-         "\t%s [options] [filename]\n"
-         "Options\n"
-         "\t-h, --help\t\tdisplay help\n"
-         "\t-l, --lru\t\tuse lru replacer\n"
-         "\t-c, --clock\t\tuse clock replacer\n",
-         program_name);
-}
-
 template <typename... Args>
 void LaunchParallelTest(int num_threads, Args &&...args) {
   std::vector<std::thread> thread_group;
