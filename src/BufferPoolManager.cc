@@ -1,15 +1,23 @@
 #include "BufferPoolManager.h"
+#include "ClockReplacer.h"
+#include "LRUReplacer.h"
 
-#include <cstdio>
 #include <cassert>
+#include <cstdio>
 
-BMgr::BMgr(std::string filename, int frame_num): frame_num_(frame_num), num_io_(0), num_hits_(0) {
-  pages_ = new Page*[frame_num];
+BMgr::BMgr(std::string filename, int policy, int frame_num)
+    : frame_num_(frame_num), num_io_(0), num_hits_(0) {
+  pages_ = new Page *[frame_num];
   for (int i = 0; i < frame_num; i++) {
     free_list_.push_back(i);
     pages_[i] = new Page();
   }
-  replacer_ = new LRUReplacer(frame_num);
+  if (policy == ReplacePolicy::Lru)
+    replacer_ = new LRUReplacer(frame_num);
+  else if (policy == ReplacePolicy::Clock)
+    replacer_ = new ClockReplacer(frame_num);
+  else
+    exit(1);
   disk_manager_ = new DSMgr(filename);
 }
 
@@ -90,13 +98,9 @@ frame_id_t BMgr::SelectVictim() {
   return victim_fid;
 }
 
-int BMgr::GetIONum() {
-  return num_io_;
-}
+int BMgr::GetIONum() { return num_io_; }
 
-int BMgr::GetHitNum() {
-  return num_hits_;
-}
+int BMgr::GetHitNum() { return num_hits_; }
 
 frame_id_t BMgr::UnfixPage(int page_id) {
   auto iter = page_table_.find(page_id);
@@ -114,13 +118,9 @@ frame_id_t BMgr::UnfixPage(int page_id) {
   return frame_id;
 }
 
-void BMgr::SetDirty(int frame_id) {
-  pages_[frame_id]->SetDirty(true);
-}
+void BMgr::SetDirty(int frame_id) { pages_[frame_id]->SetDirty(true); }
 
-void BMgr::UnsetDirty(int frame_id) {
-  pages_[frame_id]->SetDirty(false);
-}
+void BMgr::UnsetDirty(int frame_id) { pages_[frame_id]->SetDirty(false); }
 
 void BMgr::PrintFrame(int frame_id) {
   printf("frame %d:\n", frame_id);
@@ -139,9 +139,7 @@ void BMgr::PrintPageTable() {
     if (++i % 3 == 0)
       printf("\n");
   }
-    printf("\n");
+  printf("\n");
 }
 
-void BMgr::PrintReplacer() {
-  replacer_->Print();
-}
+void BMgr::PrintReplacer() { replacer_->Print(); }

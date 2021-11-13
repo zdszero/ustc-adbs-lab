@@ -4,17 +4,16 @@
 #include <unordered_map>
 
 #include "DataStorageManager.h"
-#include "LRUReplacer.h"
+#include "Replacer.h"
 
 #define FRAME_NUM 1024
 
-enum ReplacePolicy {
-  Invalid = 0, LruReplacer, ClockReplacer
-};
+enum ReplacePolicy { Invalid = 0, Lru, Clock };
 
 class BMgr {
 public:
-  BMgr(std::string filename, int frame_num = FRAME_NUM);
+  BMgr(std::string filename, int policy = ReplacePolicy::Lru,
+       int frame_num = FRAME_NUM);
   ~BMgr();
   // Interface functions
   frame_id_t FixPage(int page_id);

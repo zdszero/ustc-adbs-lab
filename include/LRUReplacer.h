@@ -4,14 +4,14 @@
 
 #include <unordered_map>
 
-struct ListNode {
-  ListNode() = default;
-  ListNode(frame_id_t _val): val(_val) {}
-  frame_id_t val;
-  ListNode *prev, *next;
-};
+class LRUReplacer : public Replacer {
+  struct ListNode {
+    ListNode() = default;
+    ListNode(frame_id_t _val) : val(_val) {}
+    frame_id_t val;
+    ListNode *prev, *next;
+  };
 
-class LRUReplacer: public Replacer {
 public:
   LRUReplacer(int max_size);
   ~LRUReplacer();

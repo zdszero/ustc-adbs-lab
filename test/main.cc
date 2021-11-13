@@ -39,11 +39,11 @@ int main(int argc, char *argv[]) {
   int policy = ReplacePolicy::Invalid;
   char *filename;
   if (opt == 'l') {
-    policy = ReplacePolicy::LruReplacer;
+    policy = ReplacePolicy::Lru;
     printf("using lru replacement policy:\n");
   } else if (opt == 'c') {
     printf("using clock replacement policy:\n");
-    policy = ReplacePolicy::ClockReplacer;
+    policy = ReplacePolicy::Clock;
   } else if (opt == 'h') {
     PrintHelp(argv[0]);
     return 0;
@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
   }
   fclose(db_file);
   /* create buffer pool manager */
-  BMgr *bmgr = new BMgr("test.db");
+  BMgr *bmgr = new BMgr("test.db", policy);
   /* read data file */
   FILE *data_file = fopen(filename, "r");
   if (data_file == NULL) {
