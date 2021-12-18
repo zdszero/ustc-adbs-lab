@@ -17,22 +17,34 @@ include_directories(include)
 enable_testing()
 find_package(GTest)
 
-file(GLOB TESTS test/*.cc)
+if(GTest_Found)
 
-add_executable(lru_replacer_test EXCLUDE_FROM_ALL test/lru_replacer_test.cc
-                                                  src/LRUReplacer.cc)
-target_link_libraries(lru_replacer_test PUBLIC GTest::gtest_main)
+  file(GLOB TESTS test/*.cc)
 
-add_executable(data_storage_manager_test EXCLUDE_FROM_ALL
-               test/data_storage_manager_test.cc src/DataStorageManager.cc)
-target_link_libraries(data_storage_manager_test PUBLIC GTest::gtest_main)
+  add_executable(
+    lru_replacer_test EXCLUDE_FROM_ALL test/lru_replacer_test.cc
+    src/LRUReplacer.cc
+  )
+  target_link_libraries(lru_replacer_test PUBLIC GTest::gtest_main)
 
-add_executable(buffer_pool_manager_test EXCLUDE_FROM_ALL
-               test/buffer_pool_manager_test.cc ${SOURCES})
-target_link_libraries(buffer_pool_manager_test PUBLIC GTest::gtest_main)
+  add_executable(
+    data_storage_manager_test EXCLUDE_FROM_ALL
+    test/data_storage_manager_test.cc src/DataStorageManager.cc
+  )
+  target_link_libraries(data_storage_manager_test PUBLIC GTest::gtest_main)
 
-add_executable(clock_replacer_test EXCLUDE_FROM_ALL test/clock_replacer_test.cc
-                                                    src/ClockReplacer.cc)
-target_link_libraries(clock_replacer_test PUBLIC GTest::gtest_main)
+  add_executable(
+    buffer_pool_manager_test EXCLUDE_FROM_ALL
+    test/buffer_pool_manager_test.cc ${SOURCES}
+  )
+  target_link_libraries(buffer_pool_manager_test PUBLIC GTest::gtest_main)
 
-include(GoogleTest)
+  add_executable(
+    clock_replacer_test EXCLUDE_FROM_ALL test/clock_replacer_test.cc
+    src/ClockReplacer.cc
+  )
+  target_link_libraries(clock_replacer_test PUBLIC GTest::gtest_main)
+
+  include(GoogleTest)
+
+endif()
